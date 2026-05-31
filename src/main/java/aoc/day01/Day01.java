@@ -29,6 +29,30 @@ public class Day01 {
     }
 
     static Object part2(List<String> input) {
-        return 0;
+        int pointer = 50;
+        int password = 0;
+
+        for (String line : input) {
+            int amount = Integer.parseInt(line.substring(1));
+            if (line.charAt(0) == 'L'){
+                if (amount > pointer) {
+                    password += (int) Math.ceil((amount - pointer) / 100.0);
+                    if(pointer == 0) password--;
+                    //System.out.println();
+                }
+                pointer = Math.floorMod(pointer - amount, 100);
+                //System.out.println("pointer: " + pointer);
+            } else {
+                if (amount > (100 - pointer)) {
+                    password += (int) Math.ceil((amount - (100 - pointer)) / 100.0);
+                    //System.out.println();
+                }
+                pointer = Math.floorMod(pointer + amount, 100);
+                //System.out.println("pointer: " + pointer);
+            }
+
+            if (pointer == 0) password++;
+        }
+        return password;
     }
 }
