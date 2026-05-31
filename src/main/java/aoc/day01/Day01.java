@@ -11,7 +11,21 @@ public class Day01 {
     }
 
     static Object part1(List<String> input) {
-        return 0;
+        int pointer = 50;
+        int password = 0;
+
+        for (String line : input) {
+            if (line.charAt(0) == 'L'){
+                pointer = (pointer - Integer.parseInt(line.substring(1)) + 100) % 100;
+                //System.out.println("pointer: " + pointer);
+            } else {
+                pointer = (pointer + Integer.parseInt(line.substring(1)) + 100) % 100;
+                //System.out.println("pointer: " + pointer);
+            }
+
+            if (pointer == 0) password++;
+        }
+        return password;
     }
 
     static Object part2(List<String> input) {
