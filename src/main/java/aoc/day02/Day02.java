@@ -15,11 +15,11 @@ public class Day02 {
     static Object part1(String input) {
         List<String> ranges = Arrays.stream(input.split(",")).toList();
 
-        int total = 0;
+        long total = 0L;
         for(String range : ranges) {
-            int lower = Integer.parseInt(range.split("-")[0]);
-            int upper = Integer.parseInt(range.split("-")[1]);
-            for(int i = lower; i <= upper; i++) {
+            long lower = Long.parseLong(range.split("-")[0]);
+            long upper = Long.parseLong(range.split("-")[1]);
+            for(long i = lower; i <= upper; i++) {
                 String numberStr = i + "";
                 if (numberStr.length() % 2 == 0 && numberStr.substring(0, numberStr.length()/2).equals(numberStr.substring(numberStr.length()/2))) {
                     total += i;
