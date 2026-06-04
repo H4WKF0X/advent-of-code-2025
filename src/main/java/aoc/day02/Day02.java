@@ -30,7 +30,34 @@ public class Day02 {
     }
 
     static Object part2(String input) {
-        return 0;
+        List<String> ranges = Arrays.stream(input.split(",")).toList();
+
+        long total = 0L;
+        for(String range : ranges) {
+            long lower = Long.parseLong(range.split("-")[0]);
+            long upper = Long.parseLong(range.split("-")[1]);
+            for(long i = lower; i <= upper; i++) {
+                String numberStr = i + "";
+                int len = numberStr.length();
+                boolean flag = true;
+                for (int j = 1; j < len; j++) {
+                    if (len % j == 0) {
+                        for (int k = 0; k < (len / j) - 1; k++) {
+                            if (!numberStr.substring(0, j).equals(numberStr.substring(j + (k*j), j + (j*(k+1))))) {
+                                flag = false;
+                            }
+                        }
+                        if(flag) {
+                            total+=i;
+                            System.out.println(i);
+                            break;
+                        }
+                        flag = true;
+                    }
+                }
+            }
+        }
+        return total;
     }
 
 }
