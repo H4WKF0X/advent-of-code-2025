@@ -44,4 +44,4 @@ bin/
 .DS_Store
 
 # AoC puzzle inputs
-#inputs/
+inputs/
