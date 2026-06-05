@@ -34,13 +34,32 @@ public class Day03 {
                 }
             }
             int add = Integer.parseInt(biggestFirst + String.valueOf(biggestSecond));
-            System.out.println(add);
-            total+= add;
+            //System.out.println(add);
+            total+=add;
         }
         return total;
     }
 
     static Object part2(List<String> input) {
-        return 0;
+        long total = 0;
+        for (String line : input) {
+            char[] output = new char[12];
+            int lastIndex = -1;
+            for (int i = 11; i >= 0; i--) {
+                char[] remaining =  line.substring(lastIndex + 1, line.length() - i).toCharArray();
+                int index = lastIndex + 1;
+                for (char c : remaining) {
+                    if (c > output[11-i]) {
+                        output[11-i] = c;
+                        lastIndex = index;
+                    }
+                    index++;
+                }
+            }
+            long add = Long.parseLong(new String(output));
+            System.out.println(add);
+            total+=add;
+        }
+        return total;
     }
 }
