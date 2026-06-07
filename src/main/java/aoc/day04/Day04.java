@@ -11,14 +11,16 @@ public class Day04 {
         System.out.println("Part 2: " + part2(input));
     }
 
+    static int[][] DIRS = {
+            {0,-1}, {1,-1}, {1,0}, {1,1},
+            {0,1}, {-1,1}, {-1,0}, {-1,-1}
+    };
+
     static Object part1(List<String> input) {
         long total = 0;
-        int[][] DIRS = {
-                {0,-1}, {1,-1}, {1,0}, {1,1},
-                {0,1}, {-1,1}, {-1,0}, {-1,-1}
-        };
 
-        char[][] grid = new char[input.size()][input.get(0).length()];
+
+        char[][] grid = new char[input.size()][input.getFirst().length()];
         for (int i = 0; i < input.size(); i++) {
             grid[i] = input.get(i).toCharArray();
         }
@@ -26,14 +28,7 @@ public class Day04 {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == '@') {
-                    int adjacent = 0;
-                    for (int[] dir : DIRS) {
-                        int x = i + dir[0];
-                        int y = j + dir[1];
-                        if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length && grid[x][y] == '@') {
-                            adjacent++;
-                        }
-                    }
+                    long adjacent = countAdjacent(grid, i, j);
                     if (adjacent < 4) {
                         total++;
                     }
@@ -45,13 +40,9 @@ public class Day04 {
 
     static Object part2(List<String> input) {
         long total = 0;
-        long totalChange = 0;
-        int[][] DIRS = {
-                {0,-1}, {1,-1}, {1,0}, {1,1},
-                {0,1}, {-1,1}, {-1,0}, {-1,-1}
-        };
+        long totalChange;
 
-        char[][] grid = new char[input.size()][input.get(0).length()];
+        char[][] grid = new char[input.size()][input.getFirst().length()];
         for (int i = 0; i < input.size(); i++) {
             grid[i] = input.get(i).toCharArray();
         }
@@ -61,14 +52,7 @@ public class Day04 {
             for (int i = 0; i < grid.length; i++) {
                 for (int j = 0; j < grid[0].length; j++) {
                     if (grid[i][j] == '@') {
-                        int adjacent = 0;
-                        for (int[] dir : DIRS) {
-                            int x = i + dir[0];
-                            int y = j + dir[1];
-                            if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length && grid[x][y] == '@') {
-                                adjacent++;
-                            }
-                        }
+                        long adjacent = countAdjacent(grid, i, j);
                         if (adjacent < 4) {
                             total++;
                             totalChange++;
@@ -80,5 +64,17 @@ public class Day04 {
         } while (totalChange != 0);
 
         return total;
+    }
+
+    private static long countAdjacent(char[][] grid, int i, int j) {
+        int adjacent = 0;
+        for (int[] dir : DIRS) {
+            int x = i + dir[0];
+            int y = j + dir[1];
+            if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length && grid[x][y] == '@') {
+                adjacent++;
+            }
+        }
+        return adjacent;
     }
 }
